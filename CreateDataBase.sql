@@ -1,6 +1,8 @@
 CREATE DATABASE PixelFrame;
 GO
 
+CREATE LOGIN PixelUser WITH PASSWORD = 'Hola123!Segura';
+
 USE PixelFrame;
 GO
 
@@ -64,6 +66,7 @@ CREATE TABLE HistorialPaginas (
     FOREIGN KEY (ContenidoID) REFERENCES Contenidos(ContenidoID)
 );
 
-CREATE LOGIN PixelUser WITH PASSWORD = 'hola123';
+USE PixelFrame;
+
 CREATE USER PixelUser FOR LOGIN PixelUser;
 EXEC sp_addrolemember 'db_owner', 'PixelUser';

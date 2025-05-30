@@ -63,3 +63,7 @@ CREATE TABLE HistorialPaginas (
     FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
     FOREIGN KEY (ContenidoID) REFERENCES Contenidos(ContenidoID)
 );
+
+CREATE LOGIN PixelUser WITH PASSWORD = 'hola123';
+CREATE USER PixelUser FOR LOGIN PixelUser;
+EXEC sp_addrolemember 'db_owner', 'PixelUser';

@@ -66,7 +66,5 @@ CREATE TABLE HistorialPaginas (
     FOREIGN KEY (ContenidoID) REFERENCES Contenidos(ContenidoID)
 );
 
-USE PixelFrame;
-
 CREATE USER PixelUser FOR LOGIN PixelUser;
 EXEC sp_addrolemember 'db_owner', 'PixelUser';

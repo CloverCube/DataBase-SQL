@@ -62,6 +62,20 @@ CREATE TABLE Contenidos (
     FOREIGN KEY (GeneroID) REFERENCES Generos(GeneroID)
 );
 
+INSERT INTO Contenidos (Titulo, Descripcion, FechaLanzamiento, TipoID, GeneroID) VALUES
+('Inception', 'Un ladrón que roba secretos corporativos a través del uso de la tecnología de sueño compartido.', '2010-07-16', 1, 3),
+('The Dark Knight', 'Batman lucha contra el crimen organizado y el Joker.', '2008-07-18', 1, 1),
+('Interstellar', 'Un grupo de astronautas viaja a través de un agujero de gusano para encontrar un nuevo hogar para la humanidad.', '2014-11-07', 1, 3),
+('Titanic', 'Una historia de amor trágica durante el hundimiento del Titanic.', '1997-12-19', 1, 7),
+('Coco', 'Un niño se embarca en una aventura en la Tierra de los Muertos para descubrir la historia de su familia.', '2017-10-27', 1, 10);
+
+INSERT INTO Contenidos (Titulo, Descripcion, FechaLanzamiento, TipoID, GeneroID) VALUES
+('The Legend of Zelda: Breath of the Wild', 'Un juego de mundo abierto donde Link debe derrotar a Ganon y salvar Hyrule.', '2017-03-03', 2, 2),
+('God of War', 'Kratos viaja con su hijo por tierras nórdicas enfrentando criaturas mitológicas.', '2018-04-20', 2, 1),
+('The Last of Us Part II', 'Una historia de supervivencia en un mundo postapocalíptico.', '2020-06-19', 2, 4),
+('Minecraft', 'Un juego de construcción y supervivencia en un mundo de bloques.', '2011-11-18', 2, 19),
+('Hollow Knight', 'Un metroidvania 2D donde un caballero lucha por restaurar su reino.', '2017-02-24', 2, 20);
+
 CREATE TABLE Resenas (
     ReseñaID INT PRIMARY KEY IDENTITY(1,1),
     UsuarioID INT NOT NULL,

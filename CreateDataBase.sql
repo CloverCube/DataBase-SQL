@@ -20,10 +20,36 @@ CREATE TABLE TiposContenido (
     NombreTipo NVARCHAR(20) NOT NULL UNIQUE
 );
 
+INSERT INTO TiposContenido (NombreTipo) VALUES
+('pelicula'),
+('videojuego');
+
 CREATE TABLE Generos (
     GeneroID INT PRIMARY KEY IDENTITY(1,1),
     NombreGenero NVARCHAR(50) NOT NULL UNIQUE
 );
+
+INSERT INTO Generos (NombreGenero) VALUES
+('Accion'),
+('Aventura'),
+('Ciencia Ficcion'),
+('Drama'),
+('Comedia'),
+('Terror'),
+('Romance'),
+('Fantasía'),
+('Documental'),
+('Animación'),
+('Misterio'),
+('Musical'),
+('Deportes'),
+('Superhéroes'),
+('Survival Horror'),
+('Shooter'),
+('Rol'),
+('Estrategia'),
+('Sandbox'),
+('Indie');
 
 CREATE TABLE Contenidos (
     ContenidoID INT PRIMARY KEY IDENTITY(1,1),

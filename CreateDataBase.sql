@@ -114,3 +114,7 @@ VALUES ('cliente', 'cliente@pixel.com', 'cliente123', 0);
 
 CREATE USER PixelUser FOR LOGIN PixelUser;
 EXEC sp_addrolemember 'db_owner', 'PixelUser';
+
+-- UPDATE Contenidos
+-- SET Titulo = 'Batman vs Joker'
+-- WHERE Titulo = 'The Dark Knight';

@@ -66,5 +66,11 @@ CREATE TABLE HistorialPaginas (
     FOREIGN KEY (ContenidoID) REFERENCES Contenidos(ContenidoID)
 );
 
+INSERT INTO Usuarios (NombreUsuario, Correo, Contrasena, EsAdmin)
+VALUES ('admin', 'admin@pixel.com', 'admin123', 1);
+
+INSERT INTO Usuarios (NombreUsuario, Correo, Contrasena, EsAdmin)
+VALUES ('cliente', 'cliente@pixel.com', 'cliente123', 0);
+
 CREATE USER PixelUser FOR LOGIN PixelUser;
 EXEC sp_addrolemember 'db_owner', 'PixelUser';

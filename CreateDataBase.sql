@@ -122,3 +122,16 @@ EXEC sp_addrolemember 'db_owner', 'PixelUser';
 -- UPDATE Contenidos
 -- SET Titulo = 'Batman vs Joker'
 -- WHERE Titulo = 'The Dark Knight';
+
+-- SELECT * FROM Usuarios;
+-- UPDATE Usuarios SET Correo = ? WHERE UsuarioID = ?
+
+-- INSERT INTO Usuarios (NombreUsuario, Correo, Contrasena) VALUES ('jose123', 'jose@example.com', 'secreta123');
+
+-- SELECT C.ContenidoID, C.Titulo, C.FechaLanzamiento, T.NombreTipo, G.NombreGenero FROM Contenidos C JOIN TiposContenido T ON C.TipoID = T.TipoID JOIN Generos G ON C.GeneroID = G.GeneroID;
+
+-- INSERT INTO Resenas (UsuarioID, ContenidoID, Calificacion, Comentario) VALUES (1, 1, 9, 'Muy buena película, recomendada.');
+
+-- INSERT INTO Resenas (UsuarioID, ContenidoID, Calificacion, Comentario) VALUES (1, 1, 9, 'Muy buena película, recomendada.');
+
+-- SELECT R.ReseñaID, U.NombreUsuario, C.Titulo, R.Calificacion, R.Comentario, R.FechaReseña FROM Resenas R JOIN Usuarios U ON R.UsuarioID = U.UsuarioID JOIN Contenidos C ON R.ContenidoID = C.ContenidoID;

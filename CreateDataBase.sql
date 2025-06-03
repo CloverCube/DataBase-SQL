@@ -83,6 +83,7 @@ CREATE TABLE Resenas (
     Calificacion INT NOT NULL CHECK (Calificacion BETWEEN 1 AND 10),
     Comentario NVARCHAR(MAX),
     FechaReseña DATETIME DEFAULT GETDATE(),
+	Likes INT NOT NULL DEFAULT 0,
     FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
     FOREIGN KEY (ContenidoID) REFERENCES Contenidos(ContenidoID)
 );
@@ -114,6 +115,9 @@ VALUES ('cliente', 'cliente@pixel.com', 'cliente123', 0);
 
 CREATE USER PixelUser FOR LOGIN PixelUser;
 EXEC sp_addrolemember 'db_owner', 'PixelUser';
+
+-- ALTER TABLE Resenas
+-- ADD Likes INT NOT NULL DEFAULT 0;
 
 -- UPDATE Contenidos
 -- SET Titulo = 'Batman vs Joker'

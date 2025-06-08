@@ -232,12 +232,51 @@ INSERT INTO Resenas (UsuarioID, ContenidoID, Calificacion, Comentario) VALUES
 (13, 27, 9, 'Difícil pero muy gratificante.'),
 (14, 14, 10, 'Un clásico que envejece perfectamente.'),
 (15, 39, 6, 'Divertido pero limitado en contenido.'),
-(16, 9, 10, 'Creatividad infinita, nunca aburre.');
+(16, 9, 10, 'Creatividad infinita, nunca aburre.'),
+(1, 4, 8, 'Buena mezcla de acción y drama.'),
+(2, 18, 7, 'Visualmente impactante pero algo lenta.'),
+(3, 17, 9, 'Historia cautivadora y bien dirigida.'),
+(4, 12, 6, 'Entretenida pero predecible.'),
+(5, 21, 9, 'Divertido y fácil de jugar en grupo.'),
+(6, 23, 8, 'Buena ambientación y narrativa.'),
+(7, 19, 10, 'Impresionante desde el inicio hasta el final.'),
+(8, 13, 9, 'Gran homenaje a los clásicos.'),
+(9, 20, 6, 'Mecánicas interesantes pero repetitivas.'),
+(10, 26, 10, 'Una montaña rusa emocional.'),
+(11, 31, 7, 'Rejugable y entretenido, pero con bugs.'),
+(12, 35, 8, 'Estilo artístico único y buen ritmo.'),
+(13, 32, 9, 'Música envolvente y diseño original.'),
+(14, 40, 10, 'Una obra que redefine el género.'),
+(15, 34, 9, 'Guion sólido y personajes memorables.'),
+(16, 37, 7, 'Cumple pero no innova.'),
+(17, 1, 10, 'Una de mis favoritas de todos los tiempos.'),
+(1, 3, 9, 'Narrativa brillante y dirección impecable.'),
+(2, 6, 8, 'Mapa enorme con muchas actividades.'),
+(3, 10, 9, 'Cada rincón está lleno de detalles.'),
+(4, 11, 8, 'Un giro interesante en la historia.'),
+(5, 8, 7, 'Buen desarrollo de personajes.'),
+(6, 2, 10, 'Inolvidable de principio a fin.'),
+(7, 33, 9, 'Combate pulido y bien balanceado.'),
+(8, 5, 8, 'Animación impresionante y banda sonora emotiva.'),
+(9, 7, 10, 'Perfecto para los fans de la saga.'),
+(10, 9, 9, 'Creatividad desbordante.'),
+(11, 15, 10, 'Actuaciones estelares.'),
+(12, 16, 9, 'Suspenso bien construido.'),
+(13, 12, 7, 'Interesante pero no atrapante.'),
+(14, 13, 8, 'Buen ritmo y jugabilidad intuitiva.'),
+(15, 27, 10, 'Desafíos que valen la pena.'),
+(16, 28, 7, 'Algunos puzles demasiado crípticos.'),
+(17, 14, 10, 'Un clásico inmortal.'),
+(1, 36, 9, 'Desafiante pero justo.'),
+(2, 29, 10, 'Diversión garantizada en modo multijugador.'),
+(3, 38, 10, 'Un RPG que todos deben jugar.'),
+(4, 39, 7, 'Entretenido aunque repetitivo.'),
+(5, 35, 8, 'Estilo artístico que destaca.');
 
 CREATE USER PixelUser FOR LOGIN PixelUser;
 EXEC sp_addrolemember 'db_owner', 'PixelUser';
 
-SELECT ContenidoID, Titulo FROM Contenidos ORDER BY ContenidoID;
+SELECT * FROM Resenas
 
 SELECT UsuarioID, NombreUsuario FROM Usuarios ORDER BY UsuarioID;
 
@@ -283,13 +322,14 @@ END
 
 
 -- TOP 5 contenidos con mejor calificacion promedio
-SELECT TOP 5 C.Titulo, 
-             AVG(R.Calificacion) AS PromedioCalificacion, 
-             COUNT(R.ReseñaID) AS TotalReseñas
+SELECT TOP 5 
+    C.Titulo, 
+    AVG(R.Calificacion) AS PromedioCalificacion, 
+    COUNT(R.ReseñaID) AS TotalResenas
 FROM Contenidos C
 JOIN Resenas R ON C.ContenidoID = R.ContenidoID
 GROUP BY C.Titulo
-HAVING COUNT(R.ReseñaID) >= 3
+HAVING COUNT(R.ReseñaID) >= 2
 ORDER BY PromedioCalificacion DESC;
 
 
@@ -299,7 +339,7 @@ SELECT U.NombreUsuario, COUNT(F.FavoritoID) AS TotalFavoritos
 FROM Usuarios U
 JOIN Favoritos F ON U.UsuarioID = F.UsuarioID
 GROUP BY U.NombreUsuario
-HAVING COUNT(F.FavoritoID) > 3
+HAVING COUNT(F.FavoritoID) > 2
 ORDER BY TotalFavoritos DESC;
 
 
@@ -316,12 +356,26 @@ ORDER BY UltimaVisita DESC;
 
 
 
--- Contenidos que estan en favoritos pero no tienen ninguna reseña
-SELECT DISTINCT C.Titulo
+-- Reseñas recientes de la ultima semana
+SELECT R.Comentario, R.Calificacion, R.FechaReseña, U.NombreUsuario AS Usuario, C.Titulo
+FROM Resenas R
+JOIN Usuarios U ON R.UsuarioID = U.UsuarioID
+JOIN Contenidos C ON R.ContenidoID = C.ContenidoID
+WHERE R.FechaReseña >= DATEADD(DAY, -7, GETDATE())
+ORDER BY R.FechaReseña DESC;
+
+
+
+
+
+-- Contenidos que están en favoritos de más de un usuario
+SELECT C.Titulo, COUNT(DISTINCT F.UsuarioID) AS UsuariosQueLoFavoritaron
 FROM Contenidos C
 JOIN Favoritos F ON C.ContenidoID = F.ContenidoID
-LEFT JOIN Resenas R ON C.ContenidoID = R.ContenidoID
-WHERE R.ReseñaID IS NULL;
+GROUP BY C.Titulo
+HAVING COUNT(DISTINCT F.UsuarioID) > 1
+ORDER BY UsuariosQueLoFavoritaron DESC;
+
 
 
 
